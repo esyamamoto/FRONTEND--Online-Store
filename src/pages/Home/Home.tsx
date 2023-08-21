@@ -38,7 +38,7 @@ export function Home() {
         <ul>
           {categories.map((cat) => (
             <li key={ cat.id }>
-              <label key={ cat.id } data-testid="category">
+              <label data-testid="category" htmlFor={ cat.id }>
                 <input type="radio" name="categorie" id={ cat.id } value={ cat.id } />
                 {cat.name}
               </label>
