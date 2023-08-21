@@ -1,28 +1,49 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import * as api from '../../services/api';
+import CategoriesList from '../../components/categories';
+import { getQuery } from '../../services/api';
 
-type Categorie = {
-  id: string,
-  name: string,
+const initialState = {
+  name: '',
 };
+
+type InputData = {
+  name: string
+};
+
 export function Home() {
-  const [categories, setCategories] = useState<Categorie[]>([]);
-
-  useEffect(() => {
-    async function gCategories() {
-      const response = await api.getCategories();
-      setCategories(response);
-    }
-    gCategories();
-  }, []);
-  console.log(categories);
-
+  const [inputData, setInputData] = useState<InputData>(initialState);
+  const [searchData, setSearchData] = useState<any>([]);
+  // console.log(searchData);
+  const handleSubmit = async () => {
+    const response = await getQuery(inputData.name);
+    setSearchData(response);
+  };
+  // const [inputData, setInputData] = useState<InputData>(initialState);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setInputData({
+      ...inputData,
+      [name]: value,
+    });
+  };
+  console.log(searchData);
   return (
     <>
       <div>
         <label htmlFor="searchInput">
-          <input type="text" placeholder="pesquisar" name="searchInput" />
+          <input
+            type="text"
+            value={ inputData.name }
+            placeholder="pesquisar"
+            name="name"
+            onChange={ handleChange }
+          />
+          <button
+            onClick={ handleSubmit }
+          >
+            Buscar
+          </button>
         </label>
       </div>
       <div>
@@ -33,19 +54,7 @@ export function Home() {
       <h1 data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
       </h1>
-      <div>
-        <h2>Categorias:</h2>
-        <ul>
-          {categories.map((cat) => (
-            <li key={ cat.id }>
-              <label data-testid="category" htmlFor={ cat.id }>
-                <input type="radio" name="categorie" id={ cat.id } value={ cat.id } />
-                {cat.name}
-              </label>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <CategoriesList />
     </>
   );
 }
