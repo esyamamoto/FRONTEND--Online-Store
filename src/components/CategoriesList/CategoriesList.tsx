@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import * as api from '../services/api';
+import * as api from '../../services/api';
 
 type Categorie = {
   id: string;
@@ -22,7 +22,7 @@ function CategoriesList() {
     <>
       <h2>Categorias:</h2>
       <ul>
-        {categories.map((cat) => (
+        {categories?.map((cat) => (
           <li key={ cat.id }>
             <label data-testid="category" htmlFor={ cat.id }>
               <input type="radio" name="categorie" id={ cat.id } value={ cat.id } />
