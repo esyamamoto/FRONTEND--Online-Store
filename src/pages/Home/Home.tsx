@@ -16,14 +16,12 @@ const initialProducts = {
 };
 export function Home() {
   const [inputData, setInputData] = useState<InputData>(initialState);
-  const [searchData, setSearchData] = useState<string>('');
   const [listProducts, setListProducts] = useState<InputProducts[]>([initialProducts]);
 
   const handleSubmit = async () => {
-    setSearchData(inputData.name);
-    setInputData(initialState);
-    const response = await api.getQuery(searchData);
+    const response = await api.getQuery(inputData.name);
     setListProducts(response.results);
+    setInputData(initialState);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +30,11 @@ export function Home() {
       ...inputData,
       [name]: value,
     });
+  };
+
+  const searhByCategorie = async (categorieId: string, data: string) => {
+    const response = await api.getProductsFromCategoryAndQuery(categorieId, data);
+    setListProducts(response.results);
   };
 
   // console.log(listProducts);
@@ -64,7 +67,7 @@ export function Home() {
       <h1 data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
       </h1>
-      <CategoriesList />
+      <CategoriesList searhByCategorie={ searhByCategorie } />
       {listProducts?.map((product) => (
         <ProductList
           key={ product.id }
