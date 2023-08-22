@@ -5,8 +5,12 @@ type Categorie = {
   id: string;
   name: string;
 };
+type Props = {
+  searhByCategorie: (categorieId: string, data: string) => void
+};
 
-function CategoriesList() {
+function CategoriesList(props:Props) {
+  const { searhByCategorie } = props;
   const [categories, setCategories] = useState<Categorie[]>([]);
 
   useEffect(() => {
@@ -16,6 +20,9 @@ function CategoriesList() {
     }
     gCategories();
   }, []);
+  const onSubmit = (id:string, data:string) => {
+    searhByCategorie(id, data);
+  };
   // console.log(categories);
 
   return (
@@ -25,8 +32,14 @@ function CategoriesList() {
         {categories?.map((cat) => (
           <li key={ cat.id }>
             <label data-testid="category" htmlFor={ cat.id }>
-              <input type="radio" name="categorie" id={ cat.id } value={ cat.id } />
-              {cat.name}
+              <input
+                type="button"
+                name="categorie"
+                id={ cat.id }
+                value={ cat.name }
+                onClick={ () => onSubmit(cat.id, cat.name) }
+              />
+              {/* {cat.name} */}
             </label>
           </li>
         ))}
