@@ -1,25 +1,31 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import CategoriesList from '../../components/categories';
-import { getQuery } from '../../services/api';
+import CategoriesList from '../../components/CategoriesList/CategoriesList';
+import { InputData, InputProducts } from '../../services/types';
+import ProductList from '../../components/ProductsList/ProductsList';
+import * as api from '../../services/api';
 
 const initialState = {
   name: '',
 };
-
-type InputData = {
-  name: string
+const initialProducts = {
+  id: '',
+  title: '',
+  thumbnail: '',
+  price: 0,
 };
-
 export function Home() {
   const [inputData, setInputData] = useState<InputData>(initialState);
-  const [searchData, setSearchData] = useState<any>([]);
-  // console.log(searchData);
+  const [searchData, setSearchData] = useState<string>('');
+  const [listProducts, setListProducts] = useState<InputProducts[]>([initialProducts]);
+
   const handleSubmit = async () => {
-    const response = await getQuery(inputData.name);
-    setSearchData(response);
+    setSearchData(inputData.name);
+    setInputData(initialState);
+    const response = await api.getQuery(searchData);
+    setListProducts(response.results);
   };
-  // const [inputData, setInputData] = useState<InputData>(initialState);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setInputData({
@@ -27,12 +33,15 @@ export function Home() {
       [name]: value,
     });
   };
-  console.log(searchData);
+
+  // console.log(listProducts);
+
   return (
     <>
       <div>
         <label htmlFor="searchInput">
           <input
+            data-testid="query-input"
             type="text"
             value={ inputData.name }
             placeholder="pesquisar"
@@ -40,6 +49,7 @@ export function Home() {
             onChange={ handleChange }
           />
           <button
+            data-testid="query-button"
             onClick={ handleSubmit }
           >
             Buscar
@@ -55,6 +65,17 @@ export function Home() {
         Digite algum termo de pesquisa ou escolha uma categoria.
       </h1>
       <CategoriesList />
+      {listProducts?.map((product) => (
+        <ProductList
+          key={ product.id }
+          listProducts={ {
+            id: product.id,
+            title: product.title,
+            thumbnail: product.thumbnail,
+            price: product.price,
+          } }
+        />
+      ))}
     </>
   );
 }
