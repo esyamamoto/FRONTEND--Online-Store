@@ -13,6 +13,7 @@ const initialProducts = {
   title: '',
   thumbnail: '',
   price: 0,
+  quantity: 0,
 };
 export function Home() {
   const [inputData, setInputData] = useState<InputData>(initialState);
@@ -76,6 +77,7 @@ export function Home() {
             title: product.title,
             thumbnail: product.thumbnail,
             price: product.price,
+            quantity: product.quantity,
           } }
         />
       ))}
