@@ -1,11 +1,20 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import * as api from '../../services/api';
-import { InputProducts } from '../../services/types';
+import { CartProducts, InputProducts } from '../../services/types';
+import addToCart from '../../utils/functions';
+
+const inicialState = {
+  id: '',
+  title: '',
+  thumbnail: '',
+  price: 0,
+  quantity: 0,
+};
 
 function ProductDetails() {
   const { id } = useParams();
-  const [itemData, setItemData] = useState<InputProducts>();
+  const [itemData, setItemData] = useState<CartProducts>(inicialState);
 
   useEffect(() => {
     const getItem = async () => {
@@ -27,12 +36,22 @@ function ProductDetails() {
           src={ itemData?.thumbnail }
           alt={ itemData?.title }
         />
+        <button
+          onClick={ () => addToCart(itemData) }
+          data-testid="product-detail-add-to-cart"
+        >
+          {' '}
+          Adicionar ao carrinho
+          {' '}
+
+        </button>
         <p data-testid="product-detail-name">{ itemData?.title }</p>
         <p data-testid="product-detail-price">{`R$${itemData?.price}`}</p>
       </div>
       <div>
         especifiçoes tecnicas
       </div>
+
     </>
   );
 }
