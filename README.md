@@ -1,4 +1,4 @@
-# Projeto Wallet
+# Projeto Front-end Online Store
 
 
 <details>
