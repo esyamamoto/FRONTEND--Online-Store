@@ -1,10 +1,20 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+# Projeto Wallet
+
+
+<details>
+<summary><strong>👨‍💻 O que foi desenvolvido</strong></summary><br />
+Neste projeto, construimos o Front-End de um e-commerce, uma loja online, alimentada por uma API do Mercado Livre. Foi desenvolvido em grupo as funcionalidades de acordo com demandas definidas em um quadro Kanban.
+ </details>
+
+<details>
+  <summary><strong>:memo: Habilidades Desenvolvidas:</strong></summary><br />
+  
+  - Buscar produtos por termos e categorias por meio da _API do Mercado Livre_.
+  - Interagir com os produtos buscados, de modo a adicioná-los e removê-los de um carrinho de compras em diferentes quantidades.
+  - Visualizar detalhes e avaliações prévias de um produto, bem como criar novas avaliações.
+  - Simular a finalização da compra dos itens selecionados.
+  - Métodos Ágeis.
+  - Kanban.
+  - Scrum.
+
+</details>
