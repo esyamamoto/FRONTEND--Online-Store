@@ -4,6 +4,7 @@
 <details>
 <summary><strong>👨‍💻 O que foi desenvolvido</strong></summary><br />
 Neste projeto, construimos o Front-End de um e-commerce, uma loja online, alimentada por uma API do Mercado Livre. Foi desenvolvido em grupo as funcionalidades de acordo com demandas definidas em um quadro Kanban.
+ Disponivel neste link: https://frontend-online-store-nine.vercel.app/
  </details>
 
 <details>
