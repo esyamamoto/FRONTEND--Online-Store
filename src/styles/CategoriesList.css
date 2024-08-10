@@ -1,0 +1,47 @@
+/* styles/CategoryList.css */
+
+h2 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem; 
+  }
+  
+  li {
+    margin: 0;
+  }
+  
+  label {
+    display: block;
+  }
+  
+  input[type="button"] {
+    background-color: #FFC107;
+    color: #333;
+    border: 1px solid #FFC107;
+    border-radius: 4px;
+    padding: 6px 10px; 
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    white-space: nowrap; 
+  }
+  
+  input[type="button"]:hover {
+    background-color: #d69600;
+    border-color: #FFB300;
+  }
+  
+  input[type="button"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.5); /* Sombra de foco */
+  }
+  

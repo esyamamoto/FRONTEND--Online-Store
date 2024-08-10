@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CategoriesList from '../../components/CategoriesList/CategoriesList';
 import { InputData, InputProducts } from '../../services/types';
 import ProductList from '../../components/ProductsList/ProductsList';
 import * as api from '../../services/api';
+import '../../styles/Home.css';
 
 const initialState = {
   name: '',
@@ -15,9 +16,11 @@ const initialProducts = {
   price: 0,
   quantity: 0,
 };
+
 export function Home() {
   const [inputData, setInputData] = useState<InputData>(initialState);
   const [listProducts, setListProducts] = useState<InputProducts[]>([initialProducts]);
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     const response = await api.getQuery(inputData.name);
@@ -38,11 +41,9 @@ export function Home() {
     setListProducts(response.results);
   };
 
-  // console.log(listProducts);
-
   return (
-    <>
-      <div>
+    <div className="home-container">
+      <div className="search-cart-container">
         <label htmlFor="searchInput">
           <input
             data-testid="query-input"
@@ -59,9 +60,7 @@ export function Home() {
             Buscar
           </button>
         </label>
-      </div>
-      <div>
-        <Link to="/shoppingCart" data-testid="shopping-cart-button">
+        <Link to="/shoppingCart" data-testid="shopping-cart-button" id="carrinhoButton">
           Carrinho
         </Link>
       </div>
@@ -69,18 +68,29 @@ export function Home() {
         Digite algum termo de pesquisa ou escolha uma categoria.
       </h1>
       <CategoriesList searhByCategorie={ searhByCategorie } />
-      {listProducts?.map((product) => (
-        <ProductList
-          key={ product.id }
-          listProducts={ {
-            id: product.id,
-            title: product.title,
-            thumbnail: product.thumbnail,
-            price: product.price,
-            quantity: product.quantity,
-          } }
-        />
-      ))}
-    </>
+      <div className="products-container">
+        {listProducts.map((product) => (
+          <div className="product-card" key={ product.id }>
+            <p>{ product.title }</p>
+            <img src={ product.thumbnail } alt={ product.title } />
+            <p>{`R$${product.price}`}</p>
+            <button
+              id="btnproductDetails"
+              data-testid="product-detail-link"
+              onClick={ () => navigate(`/productDetails/${product.id}`) }
+            >
+              Ver Detalhes
+            </button>
+            <button
+              id="btnproductDetails"
+              data-testid="product-add-to-cart"
+              onClick={ () => addToCart(product) }
+            >
+              Adicionar
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

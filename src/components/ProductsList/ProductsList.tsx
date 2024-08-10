@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { InputProducts, CartProducts } from '../../services/types';
 import addToCart from '../../utils/functions';
+import '../../styles/ProductsList.css';
 // import { AddToCart } from '../../services/localStorage';
 // import { stringify } from '@vitest/utils';
 
@@ -41,12 +42,14 @@ function ProductList({ listProducts }: ListProductProp) {
           <img src={ thumbnail } alt={ title } />
           <p>{`R$${price}`}</p>
           <button
+            id="btnproductDetails"
             data-testid="product-detail-link"
             onClick={ () => navigate(`/productDetails/${id}`) }
           >
             Ver Detalhes
           </button>
           <button
+            id="btnproductDetails"
             data-testid="product-add-to-cart"
             onClick={ () => addToCart(listProducts) }
           >

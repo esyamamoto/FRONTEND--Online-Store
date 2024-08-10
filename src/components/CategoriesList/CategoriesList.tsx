@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import * as api from '../../services/api';
+import '../../styles/CategoriesList.css';
 
 type Categorie = {
   id: string;
   name: string;
 };
 type Props = {
-  searhByCategorie: (categorieId: string, data: string) => void
+  searhByCategorie: (categorieId: string, data: string) => void;
 };
 
-function CategoriesList(props:Props) {
+function CategoriesList(props: Props) {
   const { searhByCategorie } = props;
   const [categories, setCategories] = useState<Categorie[]>([]);
 
@@ -20,13 +21,13 @@ function CategoriesList(props:Props) {
     }
     gCategories();
   }, []);
-  const onSubmit = (id:string, data:string) => {
+
+  const onSubmit = (id: string, data: string) => {
     searhByCategorie(id, data);
   };
-  // console.log(categories);
 
   return (
-    <>
+    <div className="categories-list">
       <h2>Categorias:</h2>
       <ul>
         {categories?.map((cat) => (
@@ -39,12 +40,12 @@ function CategoriesList(props:Props) {
                 value={ cat.name }
                 onClick={ () => onSubmit(cat.id, cat.name) }
               />
-              {/* {cat.name} */}
             </label>
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
+
 export default CategoriesList;
